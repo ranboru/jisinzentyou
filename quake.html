@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>地震速報・履歴</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        .eq-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .back-btn { display: inline-block; padding: 10px 20px; background: #2f3542; color: white; text-decoration: none; border-radius: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← ダッシュボードに戻る</a>
+    <h1>最新の地震履歴</h1>
+    <div class="card" id="eq-list">データを取得中...</div>
+    <script>
+        fetch('https://api.wolfx.jp/jma_eqlist.json')
+            .then(res => res.json())
+            .then(data => {
+                let html = '';
+                for(let i=1; i<=10; i++) {
+                    const e = data[`No${i}`];
+                    if(e) html += `<div class="eq-item"><strong>${e.time}</strong><br>${e.location} / M${e.magnitude} / 震度:${e.shindo}</div>`;
+                }
+                document.getElementById('eq-list').innerHTML = html;
+            });
+    </script>
+</body>
+</html>
