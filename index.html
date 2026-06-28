@@ -7,10 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; }
-        /* フォントをBIZ UDPゴシックに設定 */
         body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: #333; line-height: 1.6; margin: 0; padding: 20px; }
         
         header { text-align: center; margin-bottom: 30px; }
+        /* ブログリンク用のスタイル追加 */
+        .blog-links { margin-top: 15px; }
+        .blog-links a { margin: 0 10px; color: var(--accent); text-decoration: none; font-weight: bold; }
+        .blog-links a:hover { text-decoration: underline; }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
         .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h2 { font-size: 1.2rem; border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 0; }
@@ -37,9 +41,16 @@
 <header>
     <h1>地震前兆リアルタイム・モニター</h1>
     <p>画像をクリックすると拡大、もう一度クリックで戻ります。</p>
+    <!-- ブログリンク追加 -->
+    <div class="blog-links">
+        <a href="https://www.tankyu3.com" target="_blank">探求三昧</a>
+        <a href="https://ameblo.jp/nekosuki-2022/" target="_blank">明菜のブログ</a>
+        <a href="https://kazuyo1227.blog.fc2.com" target="_blank">かず地震</a>
+    </div>
 </header>
 
 <div class="grid">
+    <!-- データリストはそのまま -->
     <div class="card">
         <h2>イオノグラム</h2>
         <p>日本各地（稚内・国分寺・山川・沖縄）の電離層データ。</p>
