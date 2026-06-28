@@ -7,46 +7,44 @@
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; --text: #2f3542; }
-        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        /* ダークモード用変数 */
+        .dark-mode { --accent: #ff6b81; --bg: #1e272e; --card: #2f3542; --text: #f1f2f6; }
         
-        nav { background: var(--card); padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 500; text-align: center; font-weight: bold; color: var(--accent); }
+        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; transition: 0.3s; }
         
-        /* 時計表示エリアのスタイル */
-        .clock-container { background: #333; color: #fff; padding: 10px; text-align: center; font-size: 0.9rem; letter-spacing: 1px; }
+        nav { background: var(--card); padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 500; text-align: center; font-weight: bold; color: var(--accent); }
+        
+        .clock-container { background: #000; color: #fff; padding: 10px; text-align: center; font-size: 0.9rem; }
         .clock-container span { margin: 0 10px; }
 
-        .link-section { background: var(--card); margin: 20px 20px; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .link-section h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #888; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .link-section { background: var(--card); margin: 20px 20px; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .link-section h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #888; border-bottom: 1px solid #444; padding-bottom: 5px; }
         .link-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .link-list a { text-decoration: none; color: var(--text); font-size: 0.9rem; padding: 5px; background: #f9f9f9; border-radius: 5px; text-align: center; }
-        .link-list a:hover { background: #eee; }
-
+        .link-list a { text-decoration: none; color: var(--text); font-size: 0.9rem; padding: 5px; background: rgba(0,0,0,0.05); border-radius: 5px; text-align: center; }
+        
         .controls { text-align: center; margin: 20px 0; }
-        button { cursor: pointer; padding: 8px 16px; border: none; border-radius: 20px; background: var(--text); color: #fff; margin: 0 5px; font-family: inherit; }
+        button { cursor: pointer; padding: 8px 16px; border: none; border-radius: 20px; background: var(--accent); color: #fff; margin: 0 5px; font-family: inherit; font-weight: bold; }
         
         .grid { display: grid; gap: 20px; padding: 0 20px 40px 20px; }
         .pc-layout { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
         .mobile-layout { grid-template-columns: 1fr; }
         
-        .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         h2 { font-size: 1.1rem; border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; }
         
         .zoom-img-wrap { position: relative; }
         .zoom-img-input { display: none; }
         .zoom-img-label { display: block; cursor: zoom-in; }
-        .zoom-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; }
+        .zoom-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #444; }
         
-        .zoom-img-input:checked + .zoom-img-label { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
+        .zoom-img-input:checked + .zoom-img-label { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
         .zoom-img-input:checked + .zoom-img-label > .zoom-img { max-width: 90vw; max-height: 90vh; }
     </style>
 </head>
 <body>
 
 <nav>地震前兆ラボ</nav>
-
-<div class="clock-container" id="clock">
-    現在時刻を読み込み中...
-</div>
+<div class="clock-container" id="clock">現在時刻を読み込み中...</div>
 
 <div class="link-section">
     <h3>参考サイト集</h3>
@@ -55,17 +53,18 @@
         <a href="https://ameblo.jp/nekosuki-2022/" target="_blank">明菜のブログ</a>
         <a href="https://kazuyo1227.blog.fc2.com" target="_blank">かず地震</a>
         <a href="https://fusitan.net" target="_blank">不思議探偵社</a>
-        <a href="https://www.jma.go.jp/bosai/#area_type=japan&area_code=010000&pattern=earthquake_volcano" target="_blank">気象庁（地震・火山）</a>
+        <a href="https://www.jma.go.jp/bosai/#area_type=japan&area_code=010000&pattern=earthquake_volcano" target="_blank">気象庁</a>
         <a href="https://typhoon.yahoo.co.jp/weather/jp/earthquake/" target="_blank">Y!地震情報</a>
-        <a href="https://weathernews.jp/quake/" target="_blank">ウェザーニュース地震情報</a>
-        <a href="https://earthquake.tenki.jp/bousai/earthquake/" target="_blank">tenki.jp地震情報</a>
-        <a href="https://x.com/Kantei_Saigai" target="_blank">首相官邸（緊急地震速報等発表）</a>
+        <a href="https://weathernews.jp/quake/" target="_blank">ウェザーニュース</a>
+        <a href="https://earthquake.tenki.jp/bousai/earthquake/" target="_blank">tenki.jp</a>
+        <a href="https://x.com/Kantei_Saigai" target="_blank">首相官邸</a>
     </div>
 </div>
 
 <div class="controls">
     <button onclick="setLayout('pc')">PCレイアウト</button>
     <button onclick="setLayout('mobile')">スマホレイアウト</button>
+    <button onclick="toggleDarkMode()" style="background:#555;">🌙 ダークモード切替</button>
 </div>
 
 <div id="grid" class="grid pc-layout">
@@ -80,13 +79,11 @@
 </div>
 
 <script>
-    // 時計の更新処理
     function updateClock() {
         const now = new Date();
         const jst = now.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', hour12: false });
         const ut = now.toLocaleString('ja-JP', { timeZone: 'UTC', hour12: false });
-        document.getElementById('clock').innerHTML = 
-            `<span>日本時間(JST): ${jst}</span> | <span>世界時(UT): ${ut}</span>`;
+        document.getElementById('clock').innerHTML = `<span>JST: ${jst}</span> | <span>UTC: ${ut}</span>`;
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -95,6 +92,10 @@
         const grid = document.getElementById('grid');
         if(type === 'pc') { grid.classList.remove('mobile-layout'); grid.classList.add('pc-layout'); }
         else { grid.classList.remove('pc-layout'); grid.classList.add('mobile-layout'); }
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
     }
 </script>
 </body>
