@@ -6,16 +6,17 @@
     <title>地震前兆ラボ・ダッシュボード</title>
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; }
-        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: #333; line-height: 1.6; margin: 0; padding: 20px; }
+        :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; --text: #2f3542; }
+        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
         
-        header { text-align: center; margin-bottom: 30px; }
-        /* ブログリンク用のスタイル追加 */
-        .blog-links { margin-top: 15px; }
-        .blog-links a { margin: 0 10px; color: var(--accent); text-decoration: none; font-weight: bold; }
-        .blog-links a:hover { text-decoration: underline; }
+        /* モダン・ナビゲーションバー */
+        nav { background: var(--card); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 500; }
+        .logo { font-weight: bold; font-size: 1.2rem; color: var(--accent); }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--text); font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        header { text-align: center; margin: 40px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; padding: 0 20px 40px 20px; }
         .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h2 { font-size: 1.2rem; border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 0; }
         p { font-size: 0.95rem; color: #666; margin-bottom: 5px; }
@@ -38,22 +39,24 @@
 </head>
 <body>
 
-<header>
-    <h1>地震前兆リアルタイム・モニター</h1>
-    <p>画像をクリックすると拡大、もう一度クリックで戻ります。</p>
-    <!-- ブログリンク追加 -->
-    <div class="blog-links">
+<nav>
+    <div class="logo">地震前兆ラボ</div>
+    <div class="nav-links">
         <a href="https://www.tankyu3.com" target="_blank">探求三昧</a>
-        <a href="https://ameblo.jp/nekosuki-2022/" target="_blank">明菜のブログ</a>
+        <a href="https://ameblo.jp/nekosuki-2022/" target="_blank">明菜</a>
         <a href="https://kazuyo1227.blog.fc2.com" target="_blank">かず地震</a>
     </div>
+</nav>
+
+<header>
+    <h1>リアルタイム・モニター</h1>
+    <p>画像をクリックすると拡大表示できます。</p>
 </header>
 
 <div class="grid">
-    <!-- データリストはそのまま -->
     <div class="card">
         <h2>イオノグラム</h2>
-        <p>日本各地（稚内・国分寺・山川・沖縄）の電離層データ。</p>
+        <p>日本各地の電離層データ。グラフのノイズに注目。</p>
         <div class="zoom-img-wrap">
             <input type="checkbox" id="z1" class="zoom-img-input"><label for="z1" class="zoom-img-label"><img src="https://wdc-cloud.nict.go.jp/ionog/ionogram/nowpng/png/allsite.png" class="zoom-img"></label>
         </div>
@@ -61,7 +64,7 @@
 
     <div class="card">
         <h2>GPS全電子数(TEC)マップ</h2>
-        <p>大地震前には異常増加する傾向がある電子数分布。</p>
+        <p>日本上空の電子数分布。赤い部分は要警戒。</p>
         <div class="zoom-img-wrap">
             <input type="checkbox" id="z2" class="zoom-img-input"><label for="z2" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/gps/Latest_Amap.jpg" class="zoom-img"></label>
         </div>
@@ -77,7 +80,7 @@
 
     <div class="card">
         <h2>太陽X線・太陽フレア</h2>
-        <p>Mフレア発生時は大規模地震の可能性も。</p>
+        <p>フレアはC→M→Xとレベルが上がり地球へ影響。</p>
         <div class="zoom-img-wrap">
             <input type="checkbox" id="z4" class="zoom-img-input"><label for="z4" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_xray_flux.png" class="zoom-img"></label>
         </div>
@@ -93,7 +96,7 @@
 
     <div class="card">
         <h2>プロトン現象</h2>
-        <p>静止軌道の高エネルギープロトン。</p>
+        <p>静止軌道の高エネルギープロトン観測。</p>
         <div class="zoom-img-wrap">
             <input type="checkbox" id="z6" class="zoom-img-input"><label for="z6" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_proton_flux.png" class="zoom-img"></label>
         </div>
