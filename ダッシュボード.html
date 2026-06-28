@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地震前兆ラボ・ダッシュボード</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; }
+        /* フォントをBIZ UDPゴシックに設定 */
+        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: #333; line-height: 1.6; margin: 0; padding: 20px; }
+        
+        header { text-align: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { font-size: 1.2rem; border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 0; }
+        p { font-size: 0.95rem; color: #666; margin-bottom: 5px; }
+
+        /* 拡大機能CSS */
+        .zoom-img-wrap { position: relative; }
+        .zoom-img-input { display: none; }
+        .zoom-img-label { display: block; cursor: zoom-in; }
+        .zoom-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; transition: transform 0.2s; }
+        
+        .zoom-img-input:checked + .zoom-img-label {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.8); z-index: 1000; display: flex;
+            align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        .zoom-img-input:checked + .zoom-img-label > .zoom-img {
+            max-width: 90vw; max-height: 90vh; transform: scale(1); border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>地震前兆リアルタイム・モニター</h1>
+    <p>画像をクリックすると拡大、もう一度クリックで戻ります。</p>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <h2>イオノグラム</h2>
+        <p>日本各地（稚内・国分寺・山川・沖縄）の電離層データ。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z1" class="zoom-img-input"><label for="z1" class="zoom-img-label"><img src="https://wdc-cloud.nict.go.jp/ionog/ionogram/nowpng/png/allsite.png" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>GPS全電子数(TEC)マップ</h2>
+        <p>大地震前には異常増加する傾向がある電子数分布。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z2" class="zoom-img-input"><label for="z2" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/gps/Latest_Amap.jpg" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>地磁気擾乱(柿岡)</h2>
+        <p>"Active"を超えて赤色が出たら注意。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z3" class="zoom-img-input"><label for="z3" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_kakioka_kindex.png" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>太陽X線・太陽フレア</h2>
+        <p>Mフレア発生時は大規模地震の可能性も。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z4" class="zoom-img-input"><label for="z4" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_xray_flux.png" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>太陽黒点数グラフ</h2>
+        <p>太陽活動の基礎データ。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z5" class="zoom-img-input"><label for="z5" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_ssn.png" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>プロトン現象</h2>
+        <p>静止軌道の高エネルギープロトン。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z6" class="zoom-img-input"><label for="z6" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_proton_flux.png" class="zoom-img"></label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>スポラディックE層</h2>
+        <p>高度100kmの突発的な高密度電離層。</p>
+        <div class="zoom-img-wrap">
+            <input type="checkbox" id="z7" class="zoom-img-input"><label for="z7" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_foEs.jpg" class="zoom-img"></label>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
