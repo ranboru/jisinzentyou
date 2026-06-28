@@ -11,7 +11,10 @@
         
         nav { background: var(--card); padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 500; text-align: center; font-weight: bold; color: var(--accent); }
         
-        /* 参考リンク集のデザイン */
+        /* 時計表示エリアのスタイル */
+        .clock-container { background: #333; color: #fff; padding: 10px; text-align: center; font-size: 0.9rem; letter-spacing: 1px; }
+        .clock-container span { margin: 0 10px; }
+
         .link-section { background: var(--card); margin: 20px 20px; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .link-section h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #888; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         .link-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -40,6 +43,10 @@
 <body>
 
 <nav>地震前兆ラボ</nav>
+
+<div class="clock-container" id="clock">
+    現在時刻を読み込み中...
+</div>
 
 <div class="link-section">
     <h3>参考サイト集</h3>
@@ -73,6 +80,17 @@
 </div>
 
 <script>
+    // 時計の更新処理
+    function updateClock() {
+        const now = new Date();
+        const jst = now.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', hour12: false });
+        const ut = now.toLocaleString('ja-JP', { timeZone: 'UTC', hour12: false });
+        document.getElementById('clock').innerHTML = 
+            `<span>日本時間(JST): ${jst}</span> | <span>世界時(UT): ${ut}</span>`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
     function setLayout(type) {
         const grid = document.getElementById('grid');
         if(type === 'pc') { grid.classList.remove('mobile-layout'); grid.classList.add('pc-layout'); }
