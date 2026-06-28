@@ -7,34 +7,32 @@
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #ff4757; --bg: #f4f7f6; --card: #ffffff; --text: #2f3542; }
-        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        body { font-family: 'BIZ UDPGothic', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
         
-        /* モダン・ナビゲーションバー */
-        nav { background: var(--card); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 500; }
-        .logo { font-weight: bold; font-size: 1.2rem; color: var(--accent); }
-        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--text); font-size: 0.9rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-
-        header { text-align: center; margin: 40px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; padding: 0 20px 40px 20px; }
+        nav { background: var(--card); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 500; }
+        .logo { font-weight: bold; color: var(--accent); }
+        .nav-links a { margin-left: 15px; text-decoration: none; color: var(--text); font-size: 0.85rem; }
+        
+        /* レイアウト切替スイッチ */
+        .controls { text-align: center; margin: 20px 0; }
+        button { cursor: pointer; padding: 8px 16px; border: none; border-radius: 20px; background: var(--text); color: #fff; margin: 0 5px; font-family: inherit; }
+        
+        /* レイアウト制御 */
+        .grid { display: grid; gap: 20px; padding: 0 20px 40px 20px; }
+        .pc-layout { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+        .mobile-layout { grid-template-columns: 1fr; }
+        
         .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { font-size: 1.2rem; border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 0; }
-        p { font-size: 0.95rem; color: #666; margin-bottom: 5px; }
+        h2 { font-size: 1.1rem; border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; }
+        p { font-size: 0.9rem; color: #666; }
 
-        /* 拡大機能CSS */
         .zoom-img-wrap { position: relative; }
         .zoom-img-input { display: none; }
         .zoom-img-label { display: block; cursor: zoom-in; }
-        .zoom-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; transition: transform 0.2s; }
+        .zoom-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; }
         
-        .zoom-img-input:checked + .zoom-img-label {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.8); z-index: 1000; display: flex;
-            align-items: center; justify-content: center; cursor: zoom-out;
-        }
-        .zoom-img-input:checked + .zoom-img-label > .zoom-img {
-            max-width: 90vw; max-height: 90vh; transform: scale(1); border: none;
-        }
+        .zoom-img-input:checked + .zoom-img-label { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
+        .zoom-img-input:checked + .zoom-img-label > .zoom-img { max-width: 90vw; max-height: 90vh; }
     </style>
 </head>
 <body>
@@ -43,83 +41,61 @@
     <div class="logo">地震前兆ラボ</div>
     <div class="nav-links">
         <a href="https://www.tankyu3.com" target="_blank">探求三昧</a>
-        <a href="https://ameblo.jp/nekosuki-2022/" target="_blank">明菜</a>
-        <a href="https://kazuyo1227.blog.fc2.com" target="_blank">かず地震</a>
         <a href="https://fusitan.net" target="_blank">不思議探偵社</a>
     </div>
 </nav>
 
-<header>
-    <h1>リアルタイム・モニター</h1>
-    <p>画像をクリックすると拡大表示できます。</p>
-</header>
+<div class="controls">
+    <button onclick="setLayout('pc')">PCレイアウト</button>
+    <button onclick="setLayout('mobile')">スマホレイアウト</button>
+</div>
 
-<div class="grid">
+<div id="grid" class="grid pc-layout">
     <div class="card">
         <h2>イオノグラム</h2>
-        <p>日本各地の電離層データ。グラフのノイズに注目。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z1" class="zoom-img-input"><label for="z1" class="zoom-img-label"><img src="https://wdc-cloud.nict.go.jp/ionog/ionogram/nowpng/png/allsite.png" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z1" class="zoom-img-input"><label for="z1" class="zoom-img-label"><img src="https://wdc-cloud.nict.go.jp/ionog/ionogram/nowpng/png/allsite.png" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>GPS全電子数(TEC)マップ</h2>
-        <p>日本上空の電子数分布。赤い部分は要警戒。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z2" class="zoom-img-input"><label for="z2" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/gps/Latest_Amap.jpg" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z2" class="zoom-img-input"><label for="z2" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/gps/Latest_Amap.jpg" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>地磁気擾乱(柿岡)</h2>
-        <p>"Active"を超えて赤色が出たら注意。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z3" class="zoom-img-input"><label for="z3" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_kakioka_kindex.png" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z3" class="zoom-img-input"><label for="z3" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_kakioka_kindex.png" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>太陽X線・太陽フレア</h2>
-        <p>フレアはC→M→Xとレベルが上がり地球へ影響。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z4" class="zoom-img-input"><label for="z4" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_xray_flux.png" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z4" class="zoom-img-input"><label for="z4" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_xray_flux.png" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>太陽黒点数グラフ</h2>
-        <p>太陽活動の基礎データ。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z5" class="zoom-img-input"><label for="z5" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_ssn.png" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z5" class="zoom-img-input"><label for="z5" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_ssn.png" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>プロトン現象</h2>
-        <p>静止軌道の高エネルギープロトン観測。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z6" class="zoom-img-input"><label for="z6" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_proton_flux.png" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z6" class="zoom-img-input"><label for="z6" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_proton_flux.png" class="zoom-img"></label></div>
     </div>
-
     <div class="card">
         <h2>スポラディックE層</h2>
-        <p>高度100kmの突発的な高密度電離層。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z7" class="zoom-img-input"><label for="z7" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_foEs.jpg" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z7" class="zoom-img-input"><label for="z7" class="zoom-img-label"><img src="https://swc.nict.go.jp/data/latest/plots/latest_foEs.jpg" class="zoom-img"></label></div>
     </div>
-</div>
-
-     <div class="card">
+    <div class="card">
         <h2>キルナ天文台</h2>
-        <p>グラフがあれていると地震が起こる可能性。</p>
-        <div class="zoom-img-wrap">
-            <input type="checkbox" id="z8" class="zoom-img-input"><label for="z8" class="zoom-img-label"><img src="https://www2.irf.se/maggraphs/maglinux_xyz_abs.svgz" class="zoom-img"></label>
-        </div>
+        <div class="zoom-img-wrap"><input type="checkbox" id="z8" class="zoom-img-input"><label for="z8" class="zoom-img-label"><img src="https://www2.irf.se/maggraphs/maglinux_xyz_abs.svgz" class="zoom-img"></label></div>
     </div>
 </div>
 
+<script>
+    function setLayout(type) {
+        const grid = document.getElementById('grid');
+        if(type === 'pc') {
+            grid.classList.remove('mobile-layout');
+            grid.classList.add('pc-layout');
+        } else {
+            grid.classList.remove('pc-layout');
+            grid.classList.add('mobile-layout');
+        }
+    }
+</script>
 </body>
 </html>
