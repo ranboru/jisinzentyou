@@ -2,18 +2,43 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>地震速報・履歴</title>
+    <title>地震速報・履歴 | 地震前兆ラボ</title>
     <style>
         body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto 20px auto; }
         .eq-item { border-bottom: 1px solid #eee; padding: 10px 0; }
         .back-btn { display: inline-block; padding: 10px 20px; background: #2f3542; color: white; text-decoration: none; border-radius: 20px; margin-bottom: 20px; }
+        
+        /* YouTube埋め込み用スタイル */
+        .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 10px; }
+        .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        h2 { font-size: 1rem; margin-top: 0; }
+        p { font-size: 0.8rem; color: #666; margin: 0; }
     </style>
 </head>
 <body>
     <a href="index.html" class="back-btn">← ダッシュボードに戻る</a>
-    <h1>最新の地震履歴</h1>
-    <div class="card" id="eq-list">データを取得中...</div>
+    <h1>地震速報・ライブ配信</h1>
+
+    <div class="card">
+        <h2>地震ライブ 公式 (T5プロジェクト)</h2>
+        <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/UJYyY_mrUmo" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>ウェザーニュース 地震ライブ</h2>
+        <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/NfZSA-Va2xQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>最新の地震履歴</h2>
+        <div id="eq-list">データを取得中...</div>
+    </div>
+
     <script>
         fetch('https://api.wolfx.jp/jma_eqlist.json')
             .then(res => res.json())
