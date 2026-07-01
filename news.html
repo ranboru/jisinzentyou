@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>地震ニュース・ポータル</title>
     <style>
-        :root { --accent: #ff4757; --bg: #f4f7f6; --text: #2f3542; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-        h1 { text-align: center; color: var(--accent); }
-        .news-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
-        .article-view { display: none; }
-        /* 記事内の装飾用CSS */
-        .art-body h2 { border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
-        .art-body img { max-width: 100%; border-radius: 8px; display: block; margin: 20px auto; }
-        button { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
-       .red-text {
-    color: #ff4757; /* 好きな色に変更してね！ */
-    font-weight: bold;
-} 
+:root { --accent: #ff4757; --bg: #f4f7f6; --text: #2f3542; }
+body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; } /* スマホ用にpaddingを少し小さく */
+
+.container { 
+    max-width: 800px; 
+    margin: auto; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-sizing: border-box; /* 幅を計算しやすくするおまじない */
+}
+
+h1 { text-align: center; color: var(--accent); font-size: 1.5rem; } /* 少し小さめに */
+
+.news-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+.article-view { display: none; }
+
+.art-body h2 { border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
+.art-body img { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 20px auto; }
+
+button { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 1rem; }
+
+.red-text { color: #ff4757; font-weight: bold; }
+
+/* ★ここからスマホ・PCの自動切り替え設定！★ */
+@media screen and (max-width: 600px) {
+    body { padding: 5px; }
+    .container { padding: 10px; border-radius: 0; } /* スマホでは余白を詰める */
+    h1 { font-size: 1.2rem; }
+    button { width: 100%; margin-bottom: 10px; } /* スマホではボタンを横いっぱいに */
+}
     </style>
 </head>
 <body>
