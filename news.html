@@ -2,55 +2,74 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>地震ニュース・ポータル</title>
     <style>
         :root { --accent: #ff4757; --bg: #f4f7f6; --text: #2f3542; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
         h1 { text-align: center; color: var(--accent); }
         .news-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
-        .news-item:hover { background: #fff5f6; }
         .article-view { display: none; }
-        img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; }
-        button { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; margin-bottom: 20px; }
+        /* 記事内の装飾用CSS */
+        .art-body h2 { border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
+        .art-body img { max-width: 100%; border-radius: 8px; display: block; margin: 20px auto; }
+        button { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- 一覧画面 -->
     <div id="list-view">
         <h1>地震ニュース一覧</h1>
-        <div class="news-item" onclick="showArticle(1)">
-            <h3>【2026/07/01】最新の磁気異常に関する観測結果</h3>
-        </div>
+        <div id="news-list"></div>
+    </div>
 
-    <!-- 記事詳細画面 -->
     <div id="article-view" class="article-view">
         <button onclick="hideArticle()">← ニュース一覧に戻る</button>
         <h2 id="art-title"></h2>
         <p><small id="art-date"></small></p>
-        <div id="art-img"></div>
-        <div id="art-body"></div>
+        <div id="art-body" class="art-body"></div>
     </div>
 </div>
 
 <script>
+    /* 【記事の追加方法】
+       以下の articles の中に、新しい数字（2, 3...）で追加していってね！
+       
+       ★使えるHTMLタグ例★
+       ・文字を大きくする：<h1>大見出し</h1>, <h2>中見出し</h2>
+       ・太文字にする：<strong>強調したい文字</strong>
+       ・改行：<br>
+       ・画像を入れる：<img src="画像のURL">
+    */
     const articles = {
         1: {
-            title: "最新の磁気異常に関する観測結果",
+            title: "7月1日時点での緊急地震速報発表状況",
             date: "2026/07/01",
-            img: "https://via.placeholder.com/600x300?text=磁気観測イメージ",
-            body: "ここに記事の全文が入るよ。画像も自由に配置できるよ！最新の観測では...（詳細なテキスト）"
-        },
+            body: `
+            <p>今日の地震ニュース</p>
+            <p>７月１日時点で緊急地震速報（警報）の発表回数が前年を上回る１７回となりました。（下記の図を参照）
+                <img src="https://pbs.twimg.com/media/HMGY6z5aAAAVC23?format=jpg&name=900x900">
+            `
+        }
+        // ここに 2: { title: "...", date: "...", body: "..." }, みたいに増やしてね！
+    };
+
+    // 一覧を表示する処理
+    const listDiv = document.getElementById('news-list');
+    for (let id in articles) {
+        listDiv.innerHTML += `
+            <div class="news-item" onclick="showArticle(${id})">
+                <h3>【${articles[id].date}】${articles[id].title}</h3>
+            </div>
+        `;
+    }
 
     function showArticle(id) {
         const art = articles[id];
         document.getElementById('art-title').innerText = art.title;
         document.getElementById('art-date').innerText = art.date;
-        document.getElementById('art-img').innerHTML = `<img src="${art.img}" alt="記事画像">`;
-        document.getElementById('art-body').innerText = art.body;
+        document.getElementById('art-body').innerHTML = art.body; // HTMLタグが有効になるよ！
         
         document.getElementById('list-view').style.display = 'none';
         document.getElementById('article-view').style.display = 'block';
