@@ -25,10 +25,6 @@
         <div class="news-item" onclick="showArticle(1)">
             <h3>【2026/07/01】最新の磁気異常に関する観測結果</h3>
         </div>
-        <div class="news-item" onclick="showArticle(2)">
-            <h3>【2026/06/30】各地の地震活動レベルについて</h3>
-        </div>
-    </div>
 
     <!-- 記事詳細画面 -->
     <div id="article-view" class="article-view">
@@ -48,13 +44,6 @@
             img: "https://via.placeholder.com/600x300?text=磁気観測イメージ",
             body: "ここに記事の全文が入るよ。画像も自由に配置できるよ！最新の観測では...（詳細なテキスト）"
         },
-        2: {
-            title: "各地の地震活動レベルについて",
-            date: "2026/06/30",
-            img: "https://via.placeholder.com/600x300?text=地震活動マップ",
-            body: "各地で観測された地震活動のまとめだよ。詳細なデータや今後の注意点について解説するよ。"
-        }
-    };
 
     function showArticle(id) {
         const art = articles[id];
